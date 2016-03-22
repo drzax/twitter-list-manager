@@ -1,0 +1,39 @@
+{
+  "name": "twitter-list-manager",
+  "version": "1.0.0",
+  "description": "A command line tool for managing Twitter lists",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "tlm": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drzax/twitter-list-manager.git"
+  },
+  "keywords": [
+    "twitter",
+    "lists",
+    "manager",
+    "cli"
+  ],
+  "author": "Simon Elvery",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drzax/twitter-list-manager/issues"
+  },
+  "homepage": "https://github.com/drzax/twitter-list-manager#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "home-config": "^0.1.0",
+    "lodash.pick": "^4.1.0",
+    "oauth": "^0.9.14",
+    "open": "0.0.5",
+    "prompt": "^1.0.0",
+    "step": "0.0.6",
+    "twitter": "^1.2.5",
+    "yargs": "^4.3.2"
+  }
+}
