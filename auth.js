@@ -17,7 +17,7 @@ var cfg = require('home-config').load('.tlmrc');
 
 function builder (yargs) {
 	yargs
-		.usage('\nUsage: auth [options]')
+		.usage('\nUsage: auth [options]\n\nDon\'t have a key or secret? Setup an app here: https://apps.twitter.com/')
 		.describe('key', 'Your Twitter oAuth consumer key')
 		.describe('secret', 'Your Twitter oAuth consumer secret')
 		.string('key')
@@ -38,8 +38,7 @@ function handler (yargs) {
 	auth(function(err, d){
 		if (err) {
 			console.log(err);
-		};
-		console.log(d);
+		}
 	});
 }
 
@@ -90,7 +89,7 @@ function auth(callback) {
 		cfg.oauth_access_token_secret = oauth_access_token_secret;
 		cfg.save();
 
-		callback({
+		callback(null, {
 			consumer_key: cfg.oauth_consumer_key,
 			consumer_secret: cfg.oauth_consumer_secret,
 			access_token_key: cfg.oauth_access_token_key,
