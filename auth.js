@@ -18,6 +18,7 @@ var cfg = require('home-config').load('.tlmrc');
 function builder (yargs) {
 	yargs
 		.usage('\nUsage: auth [options]\n\nDon\'t have a key or secret? Setup an app here: https://apps.twitter.com/')
+		// TODO: this has to be interactive to accept pin anyway so might as well make key and secret interactive too.
 		.describe('key', 'Your Twitter oAuth consumer key')
 		.describe('secret', 'Your Twitter oAuth consumer secret')
 		.string('key')
@@ -85,6 +86,8 @@ function auth(callback) {
 				callback(err);
 		}
 
+		cfg.user_id = results2.user_id;
+		cfg.screen_name = results2.screen_name;
 		cfg.oauth_access_token_key = oauth_access_token;
 		cfg.oauth_access_token_secret = oauth_access_token_secret;
 		cfg.save();

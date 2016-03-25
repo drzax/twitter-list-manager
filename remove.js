@@ -17,9 +17,9 @@ var client = new Twitter({
 function builder (yargs) {
 	yargs
 		.usage('\nUsage: add <list> [accounts]')
-		.describe('list', 'The Twitter list to add users to')
+		.describe('list', 'The Twitter list to remove users from')
 		.string('list')
-		.describe('accounts', 'A comma separated list of accounts to add to the list')
+		.describe('accounts', 'A comma separated list of accounts to remove from the list')
 		.string('accounts');
 
 	return yargs;
@@ -36,35 +36,38 @@ function handler (yargs) {
 	// TODO: Accept file input
 	// if (yargs.file)
 
-	// Check the requisite list exists
+	client.post('lists/members/destroy_all', {
+		slug: yargs.list,
+		owner_id: cfg.user_id,
+		screen_name: accounts.join(',')
+	}, function(err, res){
+		if (err) {
+			if (err[0].code === 34) return missingList(yargs.list);
+			else throw err;
+		}
+		console.log(`\nThe following users were removed from the '${yargs.list}' list:\n` + accounts.join(', '));
+	});
+
+}
+
+
+function missingList(list) {
+
 	client.get('lists/ownerships', {count: 1000}, handleLists);
 
 	function handleLists(err, response) {
-
-		var list;
 
 		if (err) {
 			throw err;
 		}
 
-		list = response.lists.find(function(d) {return d.slug === yargs.list;});
+		console.error(`\nList '${list}' doesn't exist.\nAvailable lists:\n\n` + response.lists.map(function(d) {
+			return '  '+d.slug;
+		}).join('\n'));
 
-		if (!list) {
-			// TODO: create the missing list (maybe make this a flag)
-			console.error(`\nList '${yargs.list}' doesn't exist.\nAvailable lists:\n\n` + response.lists.map(function(d) {
-				return '  '+d.slug;
-			}).join('\n'));
-			process.exit(1);
-		}
-
-		client.post('lists/members/create_all', {list_id: list.id_str, screen_name: accounts.join(',')}, function(err, res){
-			if (err) {
-				throw err;
-			}
-			console.log(`\nThe following users were added to the '${yargs.list}' list:\n` + accounts.join(', '));
-		});
-
+		process.exit(1);
 	}
+
 }
 
 function flatten (a, b) {
