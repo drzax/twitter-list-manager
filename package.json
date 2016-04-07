@@ -29,8 +29,10 @@
   "dependencies": {
     "colors": "^1.1.2",
     "home-config": "^0.1.0",
+    "kgo": "^4.0.3",
     "lodash.omit": "^4.1.0",
     "lodash.pick": "^4.1.0",
+    "moment": "^2.12.0",
     "oauth": "^0.9.14",
     "open": "0.0.5",
     "prompt": "^1.0.0",
