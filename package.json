@@ -1,13 +1,13 @@
 {
   "name": "twitter-list-manager",
   "version": "1.0.0",
-  "description": "A command line tool for managing Twitter lists",
-  "main": "index.js",
+  "description": "A command line tool for managing Twitter things",
+  "main": "./lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "tw": "./index.js"
+    "tw": "./cli.js"
   },
   "preferGlobal": true,
   "repository": {
